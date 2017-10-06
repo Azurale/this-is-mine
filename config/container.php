@@ -21,10 +21,11 @@ $container['view'] = function ($container) {
     $twig = $view->getEnvironment();
 
     $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
-        // implement whatever logic you need to determine the asset path
-    
         return sprintf('/AdminLTE/%s', ltrim($asset, '/'));
     }));
 
     return $view;
+};
+$container[\Slim\Views\Twig::class] = function ($container){
+    return $container->get('view');
 };

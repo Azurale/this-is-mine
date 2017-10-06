@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Slim\Views\Twig;
+
 
 class Controller
 {
@@ -14,15 +14,26 @@ class Controller
      * @var ContainerInterface
      */
     private $container;
+    /**
+     * @var Twig
+     */
+    private $view;
 
-    public function __construct($container)
+
+    /**
+     * Controller constructor.
+     * @param ContainerInterface $container
+     * @param Twig $view
+     */
+    public function __construct(ContainerInterface $container, Twig $view)
     {
         $this->container = $container;
+        $this->view = $view;
     }
 
     public function render(ResponseInterface $response, string $file, $data)
     {
-        $this->container->view->render($response, $file, $data);
+        $this->view->render($response, $file, $data);
     }
 
 }
